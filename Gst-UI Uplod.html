@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TM Perfume House — Upload</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Nunito',sans-serif;
+  min-height:100vh;
+  background: #f0f4ff;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(124,92,191,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(245,166,35,0.1) 0%, transparent 50%);
+  display:flex; align-items:center; justify-content:center;
+  padding:30px 20px;
+}
+
+.page { width:100%; max-width:440px; }
+
+/* ── Brand ── */
+.brand {
+  text-align:center;
+  margin-bottom:24px;
+  animation: dropIn 0.5s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes dropIn { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:none} }
+.brand-name { font-size:13px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:#7c5cbf; }
+.brand-sub  { font-size:22px; font-weight:900; color:#1a1a2e; margin-top:4px; }
+.brand-sub span { color:#7c5cbf; }
+
+/* ── Card ── */
+.card {
+  background:#fff;
+  border-radius:28px;
+  padding:28px 28px 24px;
+  box-shadow: 0 20px 60px rgba(124,92,191,0.15);
+  animation: riseUp 0.5s cubic-bezier(.34,1.56,.64,1) .1s both;
+}
+@keyframes riseUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:none} }
+
+/* ── CHARACTER STAGE ── */
+.stage {
+  height:160px;
+  position:relative;
+  margin-bottom:4px;
+  overflow:hidden;
+}
+
+/* Ground */
+.ground {
+  position:absolute; bottom:0; left:0; right:0;
+  height:30px;
+  background:linear-gradient(180deg,#e8e0ff 0%,#d8ccff 100%);
+  border-radius:12px;
+}
+
+/* Character body */
+.character {
+  position:absolute;
+  bottom:26px; left:50%;
+  transform:translateX(-50%);
+  width:70px;
+  animation: charBob 2s ease-in-out infinite;
+}
+@keyframes charBob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-5px)} }
+
+/* Head */
+.head {
+  width:52px; height:52px;
+  background:linear-gradient(160deg,#ffd8a8,#ffc070);
+  border-radius:50%;
+  margin:0 auto;
+  position:relative;
+  box-shadow:0 4px 0 #e8a840;
+}
+
+/* Eyes */
+.eyes { position:absolute; top:16px; left:0; right:0; display:flex; justify-content:center; gap:10px; }
+.eye {
+  width:9px; height:9px;
+  background:#2a1a3e;
+  border-radius:50%;
+  position:relative;
+  animation:blink 3.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,90%,100%{transform:scaleY(1)} 95%{transform:scaleY(0.1)} }
+.eye::after { content:''; position:absolute; top:2px; right:2px; width:3px; height:3px; background:#fff; border-radius:50%; }
+
+/* Smile */
+.smile {
+  position:absolute; bottom:12px; left:50%; transform:translateX(-50%);
+  width:20px; height:10px;
+  border:2.5px solid #2a1a3e; border-top:none;
+  border-radius:0 0 12px 12px;
+}
+
+/* Hair */
+.hair {
+  position:absolute; top:-4px; left:4px; right:4px;
+  height:22px;
+  background:linear-gradient(160deg,#4a2800,#6b3d00);
+  border-radius:50% 50% 0 0;
+  z-index:1;
+}
+
+/* Body */
+.body {
+  width:48px; height:44px;
+  background:linear-gradient(160deg,#7c5cbf,#6344a8);
+  border-radius:10px 10px 14px 14px;
+  margin:0 auto;
+  position:relative;
+  box-shadow:0 4px 0 #4a2e8a;
+}
+
+/* Collar */
+.collar {
+  position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:16px; height:10px;
+  background:linear-gradient(160deg,#fff,#f0f0ff);
+  border-radius:0 0 8px 8px;
+}
+
+/* Right arm — points at drop box */
+.arm-right {
+  position:absolute;
+  top:8px; right:-32px;
+  width:34px; height:12px;
+  background:linear-gradient(90deg,#ffd8a8,#ffc070);
+  border-radius:8px;
+  transform-origin:left center;
+  animation:point 2s ease-in-out infinite;
+  box-shadow:0 3px 0 #e8a840;
+}
+@keyframes point {
+  0%,100%{transform:rotate(-20deg)}
+  50%{transform:rotate(-10deg)}
+}
+
+/* Finger tip */
+.arm-right::after {
+  content:'';
+  position:absolute; right:-8px; top:50%; transform:translateY(-50%);
+  width:10px; height:10px;
+  background:#ffd8a8;
+  border-radius:50%;
+  box-shadow:0 2px 0 #e8a840;
+}
+
+/* Left arm down */
+.arm-left {
+  position:absolute;
+  top:10px; left:-18px;
+  width:20px; height:10px;
+  background:linear-gradient(90deg,#ffc070,#ffd8a8);
+  border-radius:8px;
+  transform:rotate(30deg);
+  transform-origin:right center;
+  box-shadow:0 2px 0 #e8a840;
+}
+
+/* Legs */
+.legs { display:flex; justify-content:center; gap:8px; margin-top:2px; }
+.leg {
+  width:14px; height:22px;
+  background:linear-gradient(180deg,#4a3080,#3a2060);
+  border-radius:6px 6px 8px 8px;
+}
+.shoe {
+  width:18px; height:9px;
+  background:#2a1a3e;
+  border-radius:4px 8px 8px 4px;
+  margin-top:-2px;
+  margin-left:-2px;
+}
+
+/* Speech bubble */
+.bubble {
+  position:absolute;
+  top:4px; right:8px;
+  background:#fff;
+  border:2.5px solid #e0d8ff;
+  border-radius:14px 14px 14px 2px;
+  padding:7px 12px;
+  font-size:12px; font-weight:800; color:#7c5cbf;
+  white-space:nowrap;
+  animation:bubblePop 0.4s cubic-bezier(.34,1.56,.64,1) .3s both;
+  box-shadow:0 4px 12px rgba(124,92,191,0.12);
+}
+@keyframes bubblePop { from{opacity:0;transform:scale(0.6)} to{opacity:1;transform:scale(1)} }
+
+.bubble.success-bubble {
+  background:#edfaf3; border-color:#a8e8c4; color:#3dab72;
+  animation:bubblePop 0.4s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+/* Floating arrows pointing right */
+.float-arrows {
+  position:absolute;
+  top:50%; right:20px;
+  transform:translateY(-50%);
+  display:flex; flex-direction:column; gap:4px;
+}
+.fa {
+  width:0; height:0;
+  border-top:5px solid transparent; border-bottom:5px solid transparent;
+  border-left:8px solid #7c5cbf;
+  opacity:0.3;
+  animation:arrowFade 1.4s ease-in-out infinite;
+}
+.fa:nth-child(1){animation-delay:0s; opacity:0.5}
+.fa:nth-child(2){animation-delay:0.2s; opacity:0.3}
+.fa:nth-child(3){animation-delay:0.4s; opacity:0.15}
+@keyframes arrowFade { 0%,100%{transform:translateX(0)} 50%{transform:translateX(4px)} }
+
+/* ── Date field ── */
+.field { margin-bottom:16px; }
+.label { display:block; font-size:11px; font-weight:900; letter-spacing:2px; text-transform:uppercase; color:#7c5cbf; margin-bottom:7px; }
+input[type=date] {
+  width:100%; background:#f8f6ff; border:2px solid #e8e0ff;
+  border-radius:12px; color:#1a1a2e;
+  font-family:'Nunito',sans-serif; font-size:14px; font-weight:700;
+  padding:10px 14px; outline:none; transition:all .2s; color-scheme:light;
+}
+input[type=date]:focus { border-color:#7c5cbf; box-shadow:0 0 0 4px rgba(124,92,191,.08); }
+
+/* ── Drop zone ── */
+.drop-zone {
+  border:2.5px dashed #c8b8ef;
+  border-radius:18px;
+  padding:22px 18px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);
+  background:#faf8ff;
+  position:relative;
+  margin-bottom:12px;
+}
+.drop-zone:hover, .drop-zone.drag-over {
+  border-color:#7c5cbf; border-style:solid;
+  background:#f5f0ff;
+  transform:scale(1.01);
+  box-shadow:0 0 0 6px rgba(124,92,191,.07);
+}
+.drop-zone input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+.dz-icon { font-size:32px; margin-bottom:6px; display:block; animation:float 2.5s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+.dz-title { font-size:14px; font-weight:800; color:#1a1a2e; margin-bottom:2px; }
+.dz-sub { font-size:12px; color:#9080b0; font-weight:600; }
+.dz-sub b { color:#7c5cbf; }
+
+/* ── Thumbnail ── */
+.thumb-wrap { display:none; margin-bottom:12px; }
+
+.thumb {
+  display:flex; align-items:center; gap:12px;
+  background:linear-gradient(135deg,#f0fff6,#e4fff0);
+  border:2.5px solid #90e0b8;
+  border-radius:16px;
+  padding:12px 14px;
+  position:relative; overflow:hidden;
+  animation:thumbIn .5s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes thumbIn { from{opacity:0;transform:scale(.7) rotate(-3deg)} to{opacity:1;transform:none} }
+
+.thumb::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:4px;
+  background:linear-gradient(90deg,#3dab72,#60e898);
+}
+
+/* Animated CSV file icon */
+.csv-icon {
+  width:48px; height:58px; flex-shrink:0;
+  position:relative;
+}
+
+.csv-paper {
+  width:42px; height:54px;
+  background:#fff;
+  border:2px solid #90e0b8;
+  border-radius:6px 12px 6px 6px;
+  position:absolute; bottom:0; left:0;
+  overflow:hidden;
+}
+
+.csv-corner {
+  position:absolute; top:-1px; right:-1px;
+  width:14px; height:14px;
+  background:linear-gradient(225deg,#90e0b8 50%,transparent 50%);
+  border-radius:0 10px 0 0;
+}
+
+.csv-lines { padding:16px 6px 6px; display:flex; flex-direction:column; gap:4px; }
+.csv-line  { height:4px; border-radius:2px; background:#b8f0d0; animation:linePop .3s ease both; }
+.csv-line:nth-child(1){ animation-delay:.1s; width:28px; }
+.csv-line:nth-child(2){ animation-delay:.2s; width:22px; }
+.csv-line:nth-child(3){ animation-delay:.3s; width:26px; }
+.csv-line:nth-child(4){ animation-delay:.4s; width:18px; }
+@keyframes linePop { from{opacity:0;transform:scaleX(0)} to{opacity:1;transform:scaleX(1)} }
+
+.csv-badge {
+  position:absolute; top:4px; left:4px;
+  background:#3dab72; color:#fff;
+  font-size:8px; font-weight:900;
+  padding:1px 5px; border-radius:4px;
+  letter-spacing:.5px;
+}
+
+.thumb-info { flex:1; min-width:0; }
+.thumb-name { font-size:14px; font-weight:900; color:#1a1a2e; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.thumb-meta { font-size:11px; color:#3dab72; font-weight:700; margin-top:2px; }
+.thumb-ready {
+  display:inline-block; margin-top:5px;
+  background:#3dab72; color:#fff;
+  font-size:10px; font-weight:900; padding:2px 10px;
+  border-radius:999px; letter-spacing:.5px;
+}
+
+.thumb-del {
+  background:none; border:none; cursor:pointer;
+  font-size:20px; color:#aaa;
+  transition:all .2s; padding:4px 6px;
+  border-radius:8px; flex-shrink:0;
+}
+.thumb-del:hover { color:#f05555; background:rgba(240,85,85,.08); transform:rotate(90deg); }
+
+/* ── Button ── */
+.btn {
+  width:100%; padding:15px;
+  background:linear-gradient(135deg,#7c5cbf,#6344a8);
+  border:none; border-radius:16px;
+  color:#fff; font-family:'Nunito',sans-serif;
+  font-size:16px; font-weight:900;
+  cursor:pointer; letter-spacing:.5px;
+  transition:all .2s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 6px 20px rgba(124,92,191,.3);
+  position:relative; overflow:hidden;
+}
+.btn::after { content:''; position:absolute; top:0; left:0; right:0; height:50%; background:rgba(255,255,255,.1); border-radius:16px 16px 0 0; }
+.btn:hover:not(:disabled) { transform:translateY(-3px); box-shadow:0 10px 30px rgba(124,92,191,.4); }
+.btn:active:not(:disabled) { transform:scale(.98); }
+.btn:disabled { background:#e0d8f0; color:#b8b0d0; cursor:not-allowed; box-shadow:none; }
+
+/* ── Status ── */
+.status { margin-top:12px; padding:12px 16px; border-radius:12px; font-size:13px; font-weight:700; display:none; }
+.status.loading { background:#f8f6ff; border:2px solid #e0d8ff; color:#7c5cbf; display:flex; align-items:center; gap:10px; }
+.status.success { background:#edfaf3; border:2px solid #b0ecd0; color:#3dab72; display:flex; align-items:center; gap:10px; }
+.status.error   { background:#fff0f0; border:2px solid #ffd0d0; color:#f05555; display:flex; align-items:center; gap:10px; }
+.spinner { width:15px; height:15px; border:2.5px solid rgba(124,92,191,.2); border-top-color:#7c5cbf; border-radius:50%; animation:spin .7s linear infinite; flex-shrink:0; }
+@keyframes spin { to{transform:rotate(360deg)} }
+
+/* ── Confetti ── */
+.cc { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:100; display:none; }
+.cp { position:absolute; top:-16px; animation:cf 2.5s ease-in forwards; }
+@keyframes cf { 100%{transform:translateY(100vh) rotate(720deg); opacity:0} }
+
+/* ── Stats ── */
+.stats { display:flex; gap:8px; margin-bottom:14px; }
+.sp { flex:1; background:#f8f6ff; border-radius:10px; padding:8px; text-align:center; border:1.5px solid #e8e0ff; }
+.sv { font-size:16px; font-weight:900; color:#7c5cbf; display:block; }
+.sl { font-size:9px; font-weight:800; color:#a090c0; text-transform:uppercase; letter-spacing:1px; }
+</style>
+</head>
+<body>
+<div class="cc" id="cc"></div>
+
+<div class="page">
+  <div class="brand">
+    <div class="brand-name">💎 TM Perfume House</div>
+    <div class="brand-sub">Order <span>Upload</span> Portal</div>
+  </div>
+
+  <div class="card">
+
+    <!-- CHARACTER STAGE -->
+    <div class="stage" id="stage">
+
+      <!-- Speech bubble -->
+      <div class="bubble" id="bubble">👆 Drop your CSV here!</div>
+
+      <!-- Floating arrows -->
+      <div class="float-arrows">
+        <div class="fa"></div>
+        <div class="fa"></div>
+        <div class="fa"></div>
+      </div>
+
+      <!-- Ground -->
+      <div class="ground"></div>
+
+      <!-- Character -->
+      <div class="character">
+        <div class="head">
+          <div class="hair"></div>
+          <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+          </div>
+          <div class="smile"></div>
+        </div>
+        <div class="body">
+          <div class="collar"></div>
+          <div class="arm-right" id="armRight"></div>
+          <div class="arm-left"></div>
+        </div>
+        <div class="legs">
+          <div>
+            <div class="leg"></div>
+            <div class="shoe"></div>
+          </div>
+          <div>
+            <div class="leg"></div>
+            <div class="shoe"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="sp"><span class="sv" id="sv">0</span><span class="sl">Files</span></div>
+      <div class="sp"><span class="sv" id="ss">0KB</span><span class="sl">Size</span></div>
+      <div class="sp"><span class="sv" id="sd">—</span><span class="sl">Date</span></div>
+    </div>
+
+    <!-- Date -->
+    <div class="field">
+      <label class="label">📅 Order Date</label>
+      <input type="date" id="dt">
+    </div>
+
+    <!-- Drop zone -->
+    <div class="drop-zone" id="dz">
+      <input type="file" id="fi" accept=".csv">
+      <span class="dz-icon">📂</span>
+      <div class="dz-title">Drop Shopify CSV here</div>
+      <div class="dz-sub">or <b>click to browse</b></div>
+    </div>
+
+    <!-- Thumbnail -->
+    <div class="thumb-wrap" id="tw">
+      <div class="thumb">
+        <div class="csv-icon">
+          <div class="csv-paper">
+            <div class="csv-corner"></div>
+            <div class="csv-badge">CSV</div>
+            <div class="csv-lines">
+              <div class="csv-line"></div>
+              <div class="csv-line"></div>
+              <div class="csv-line"></div>
+              <div class="csv-line"></div>
+            </div>
+          </div>
+        </div>
+        <div class="thumb-info">
+          <div class="thumb-name" id="tn">—</div>
+          <div class="thumb-meta" id="tm">—</div>
+          <span class="thumb-ready">✓ Ready to process</span>
+        </div>
+        <button class="thumb-del" onclick="removeFile()">×</button>
+      </div>
+    </div>
+
+    <!-- Button -->
+    <button class="btn" id="btn" disabled onclick="submit()">🚀 Process Orders</button>
+
+    <!-- Status -->
+    <div class="status" id="st"></div>
+
+  </div>
+</div>
+
+<script>
+const HOOK = "https://tmperfumehouse.app.n8n.cloud/webhook/a685e8a4-7536-4646-89f6-5286fe062f2a";
+
+let file = null;
+
+const dt  = document.getElementById('dt');
+const dz  = document.getElementById('dz');
+const fi  = document.getElementById('fi');
+const btn = document.getElementById('btn');
+const tw  = document.getElementById('tw');
+const bubble = document.getElementById('bubble');
+
+dt.value = new Date().toISOString().split('T')[0];
+setDate();
+dt.addEventListener('change', setDate);
+
+function setDate() {
+  const d = dt.value;
+  document.getElementById('sd').textContent = d
+    ? new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short'}) : '—';
+}
+
+dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', ()  => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  f && f.name.endsWith('.csv') ? setFile(f) : showStatus('error','⚠️ CSV files only!');
+});
+fi.addEventListener('change', () => fi.files[0] && setFile(fi.files[0]));
+
+function setFile(f) {
+  file = f;
+  const kb = (f.size/1024).toFixed(1);
+  document.getElementById('tn').textContent = f.name;
+  document.getElementById('tm').textContent = kb+' KB · CSV file';
+  document.getElementById('sv').textContent = '1';
+  document.getElementById('ss').textContent = kb+'KB';
+
+  // Show thumbnail
+  tw.style.display = 'block';
+  // Hide drop zone
+  dz.style.display = 'none';
+  // Update bubble
+  bubble.textContent = '🎉 File ready! Hit process!';
+  bubble.className = 'bubble success-bubble';
+  // Character arm waves
+  document.getElementById('armRight').style.animation = 'wave 0.4s ease-in-out 3';
+
+  btn.disabled = false;
+  clearStatus();
+}
+
+function removeFile() {
+  file = null; fi.value = '';
+  tw.style.display = 'none';
+  dz.style.display = 'block';
+  btn.disabled = true;
+  bubble.textContent = '👆 Drop your CSV here!';
+  bubble.className = 'bubble';
+  document.getElementById('sv').textContent = '0';
+  document.getElementById('ss').textContent = '0KB';
+  clearStatus();
+}
+
+async function submit() {
+  if (!file) return;
+  btn.disabled = true;
+  btn.textContent = '⏳ Processing...';
+  showStatus('loading','Sending orders to database...');
+  try {
+    const fd = new FormData();
+    fd.append('data', file, file.name);
+    fd.append('orderDate', dt.value);
+    fd.append('fileName', file.name);
+    fd.append('triggeredAt', new Date().toISOString());
+    const res = await fetch(HOOK, {method:'POST', body:fd});
+    if (res.ok) {
+      showStatus('success','🎉 Orders saved to database!');
+      bubble.textContent = '🥳 All done! Great job!';
+      bubble.className = 'bubble success-bubble';
+      confetti(); removeFile();
+    } else {
+      showStatus('error','❌ Error '+res.status+' — try again.');
+      btn.disabled = false;
+    }
+  } catch(e) {
+    showStatus('error','❌ Connection failed.');
+    btn.disabled = false;
+  }
+  btn.textContent = '🚀 Process Orders';
+}
+
+function showStatus(t, m) {
+  const el = document.getElementById('st');
+  el.className = 'status '+t;
+  el.innerHTML = t==='loading'
+    ? `<div class="spinner"></div><span>${m}</span>`
+    : `<span>${m}</span>`;
+}
+function clearStatus() {
+  const el = document.getElementById('st');
+  el.className='status'; el.innerHTML='';
+}
+
+function confetti() {
+  const c = document.getElementById('cc');
+  c.style.display='block'; c.innerHTML='';
+  const cols=['#7c5cbf','#f5a623','#3dab72','#4a90d9','#f05555','#ffc04a','#fff','#c8b8ff'];
+  for(let i=0;i<90;i++){
+    const p=document.createElement('div');
+    p.className='cp';
+    const s=Math.random()*10+6;
+    p.style.cssText=`left:${Math.random()*100}vw;width:${s}px;height:${s}px;background:${cols[Math.floor(Math.random()*cols.length)]};border-radius:${Math.random()>.5?'50%':'3px'};animation-duration:${Math.random()*1.5+1.5}s;animation-delay:${Math.random()*0.6}s;`;
+    c.appendChild(p);
+  }
+  setTimeout(()=>c.style.display='none', 4000);
+}
+</script>
+</body>
+</html>
